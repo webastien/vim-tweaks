@@ -105,6 +105,7 @@ noremap <silent> <S-K> :m .-2<CR>
 noremap <silent> <S-J> :m .+1<CR>
 " Ctags management
 map      <silent> <F3> :call DisplayTag()<CR>
+map      <silent> <F4> :call DisplayGivenTag()<CR>
 nnoremap <silent> <F5> :call RebuildTags()<CR>
 " Toggle the ouline with F8
 nmap <silent> <F8> :TagbarToggle<CR>

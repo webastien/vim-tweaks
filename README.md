@@ -34,6 +34,7 @@ This plugin contains my custom tweaks on VIm configuration. I've put them in a s
 * **SHIFT-K** Move the current line up
 * **SHIFT-J** Move the current line down
 * **F3** Jump to declaration of the function / class / ... under the cursor
+* **F4** Jump to declaration of the function / class / ... given by prompt
 * **F5** Create / Refresh tags list of the project
 * **F8** Toggle file outline
 * **+** Auto align with tabular (detect ":" or "=" context)
