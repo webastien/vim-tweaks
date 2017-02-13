@@ -1,3 +1,4 @@
+if exists('vim_tweaks__loaded') | finish | endif | let vim_tweaks__loaded = 1
 " ##  VIm options  ##################################################################################################################################
 syntax  enable                     " Enable syntax highlighting
 autocmd BufWritePre * :%s/\s\+$//e " Always remove trailing whitespace on save
