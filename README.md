@@ -19,7 +19,7 @@ This plugin contains my custom tweaks on VIm configuration. I've put them in a s
 * **SHIFT-Q** Return to last edited line
 * **SPACE** Fold / Unfold
 * **SHIFT-C** Comment / Uncomment line or selected block
-* **SHIFT-TAB** (insert mode) Autocompletion
+* **CTRL-SPACE** (insert mode) Autocompletion
 * **CTRL-T** New tab
 * **CTRL-W** Close tab
 * **LEFT** Previous tab

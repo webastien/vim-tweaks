@@ -63,7 +63,7 @@ nnoremap <silent> <C-F> :call WordSearch()<CR>
 nnoremap <silent> <F6>  :cprevious<CR>zv
 nnoremap <silent> <F7>  :cnext<CR>zv
 " Toggle auto preview
-nnoremap <silent> <F2> :AutoPreviewToggle<CR>
+nnoremap <silent> <F2> :AutoPreviewToggle<CR>:hi previewWord ctermbg=NONE<CR>
 " As PIV plugin use ":setlocal nowrap", re-add this option on PHP files
 autocmd FileType php :setlocal wrap
 " Use plugin tabularize with '+' key with auto determination of parameters
@@ -81,8 +81,8 @@ map <S-q> '.
 noremap  <Space> za
 " Nerd commenter toggle on Shift-C
 map <S-C> <leader>c<space>
-" Omnicompletion with Shift-Tab (insert mode)
-inoremap <S-Tab> <C-X><C-O>
+" Omnicompletion with CTRL-Space (insert mode) @see http://stackoverflow.com/questions/7722177/how-do-i-map-ctrl-x-ctrl-o-to-ctrl-space-in-terminal-vim
+inoremap <C-@> <C-X><C-O>
 " Tab gesture
 map <silent> <C-T>   :tabnew<CR>
 map <silent> <C-W>   :tabclose<CR>
@@ -112,12 +112,13 @@ nnoremap <silent> <F5> :call RebuildTags()<CR>
 nmap <silent> <F8> :TagbarToggle<CR>
 
 " ##  Colors customization  #########################################################################################################################
-colors jellybeans
+colors jellybeans " Base colorscheme
+" Colors override
 hi CursorLine   cterm=bold      ctermfg=NONE ctermbg=18   " Current line
 hi FoldColumn   cterm=NONE      ctermfg=220  ctermbg=NONE " Fold marks column
 hi Folded       cterm=NONE      ctermfg=100  ctermbg=NONE " Folded elements
 hi LineNr       cterm=NONE      ctermfg=236  ctermbg=NONE " Line number column
-hi Normal       cterm=NONE      ctermfg=188  ctermbg=NONE " Default lines (remove the background color from jellybeans scheme)
+hi Normal       cterm=NONE      ctermfg=188  ctermbg=NONE " Default lines
 hi Search       cterm=bold      ctermfg=52   ctermbg=11   " Currently researched terms
 hi StatusLine   cterm=bold      ctermfg=16   ctermbg=46   " Status line
 hi StatusLineNC cterm=NONE      ctermfg=16   ctermbg=8    " Status line (non current)
@@ -126,4 +127,5 @@ hi TabLineFill  cterm=underline ctermfg=NONE ctermbg=NONE " The space around tab
 hi TabLineSel   cterm=bold      ctermfg=16   ctermbg=46   " Current buffer tab bar
 hi Todo         cterm=bold      ctermfg=220  ctermbg=52   " TODO markers
 hi Visual       cterm=reverse   ctermfg=NONE ctermbg=NONE " Visual selection
+hi previewWord  cterm=bold      ctermfg=1    ctermbg=NONE " Previewed word
 
