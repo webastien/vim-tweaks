@@ -55,9 +55,10 @@ autocmd BufRead,BufNewFile *.info    set filetype=dosini
 autocmd BufRead,BufNewFile *.ini     set filetype=dosini
 " Map word search and its navigation on CTRL-F (start search) and F6/F7 (show next/previous result)
 function WordSearch()
-  call inputsave() | let w = input('Word: ', expand("<cword>")) | call inputrestore() | if w == '' | return | endif
-  call inputsave() | let d = input('Dir: ',  getcwd(), 'dir')   | call inputrestore() | if d == '' || !isdirectory(d) | return | endif
-  exec "tabnew" | echo "searching..." | silent exec "vimgrep /". w ."/j ". fnamemodify(d, ':p') ."**/*.*" | exec "copen" | exec "cfirst" | exec "norm zv"
+  call inputsave() | let w = input('Word: ', expand("<cword>")) | call inputrestore()            | if w == ''                    | return | endif
+  call inputsave() | let d = input('Dir: ',  getcwd(), 'dir')   | call inputrestore() | echo ' ' | if d == '' || !isdirectory(d) | return | endif
+  echohl Search | echo 'Searching "'. w .'" in "'. d .'"...' | echohl None
+  exec "tabnew" | silent exec "vimgrep /". w ."/j ". fnamemodify(d, ':p') ."**/*.*" | exec "copen" | exec "cfirst" | exec "norm zv"
 endfunction
 nnoremap <silent> <C-F> :call WordSearch()<CR>
 nnoremap <silent> <F6>  :cprevious<CR>zv
