@@ -2,7 +2,7 @@ if exists('vim_tweaks__loaded') | finish | endif | let vim_tweaks__loaded = 1
 " ###################################################################################################################################################
 " ##  VIm options  ##################################################################################################################################
 " ###################################################################################################################################################
-syntax  enable                                                " Enable syntax highlighting
+syntax enable                                                 " Enable syntax highlighting
 set autochdir                                                 " Use relative path from the current file
 set completeopt=menu,preview,longest                          " Omnicompletion settings
 set cursorline                                                " Highlight current line
@@ -31,6 +31,7 @@ let g:syntastic_auto_loc_list=1                                                "
 let NERDSpaceDelims=1                                                          " NERDcommenter
 let g:tagbar_compact = 1 | let g:tagbar_autofocus = 1 | let g:tagbar_close = 1 " Tagbar
 let g:AutoPreview_enabled=0 | set previewheight=1 | set updatetime=500         " Autopreview
+let g:phpcomplete_mappings = { 'jump_to_def': '<C-G>' }                        " PHPComplete TODO: Replace omnicompletion mapping when well tested
 
 " ###################################################################################################################################################
 " ##  Autocommands  #################################################################################################################################
@@ -126,4 +127,6 @@ nnoremap <silent> <F7>  :cnext<CR>zv
 map      <silent> <F3> :call DisplayTag()<CR>
 map      <silent> <F4> :call DisplayGivenTag()<CR>
 nnoremap <silent> <F5> :call RebuildTags()<CR>
+" [ TO IMPROVE THE COLORS SETTINGS ] Get the highligh group of the element under the cursor
+map <F10> :echo synIDattr(synID(line("."),col("."),1),"name")<CR>
 

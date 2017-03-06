@@ -18,30 +18,31 @@ This plugin contains my custom tweaks on VIm configuration. I've put them in a s
 * [Syntastic plugin](https://github.com/scrooloose/syntastic) is set to show errors by default
 
 ## Keyboard shortcuts
-* <kbd>CTRL</kbd> + <kbd>F</kbd> to search something, somewhere
+* <kbd>CTRL</kbd><kbd>F</kbd> to search something, somewhere
 * <kbd>F6</kbd> Go to previous result of this search
 * <kbd>F7</kbd> Go to next result of this search
 * <kbd>F2</kbd> Toggle autopreview
-* <kbd>SHIFT</kbd> + <kbd>Q</kbd> Return to last edited line
+* <kbd>SHIFT</kbd><kbd>Q</kbd> Return to last edited line
 * <kbd>SPACE</kbd> Fold / Unfold
-* <kbd>SHIFT</kbd> + <kbd>C</kbd> Comment / Uncomment line or selected block
-* <kbd>CTRL</kbd> + <kbd>SPACE</kbd> (insert mode) Autocompletion
-* <kbd>CTRL</kbd> + <kbd>T</kbd> New tab
-* <kbd>CTRL</kbd> + <kbd>W</kbd> Close tab
+* <kbd>SHIFT</kbd><kbd>C</kbd> Comment / Uncomment line or selected block
+* <kbd>CTRL</kbd><kbd>SPACE</kbd> (insert mode) Autocompletion
+* <kbd>CTRL</kbd><kbd>T</kbd> New tab
+* <kbd>CTRL</kbd><kbd>W</kbd> Close tab
 * <kbd>LEFT</kbd> Previous tab
 * <kbd>RIGHT</kbd> Next tab
 * <kbd>UP</kbd> Previous pane
 * <kbd>DOWN</kbd> Next pane
-* <kbd>CTRL</kbd> + <kbd>K</kbd> Page up
-* <kbd>CTRL</kbd> + <kbd>J</kbd> Page down
-* <kbd>CTRL</kbd> + <kbd>H</kbd> Begin of line
-* <kbd>CTRL</kbd> + <kbd>L</kbd> End of line
-* <kbd>TAB<kbd> / <kbd>SHIFT</kbd> + <kbd>TAB</kbd> Indent more / less current line or selected block
-* <kbd>SHIFT</kbd> + <kbd>K</kbd> Move the current line up
-* <kbd>SHIFT</kbd> + <kbd>J</kbd> Move the current line down
+* <kbd>CTRL</kbd><kbd>K</kbd> Page up
+* <kbd>CTRL</kbd><kbd>J</kbd> Page down
+* <kbd>CTRL</kbd><kbd>H</kbd> Begin of line
+* <kbd>CTRL</kbd><kbd>L</kbd> End of line
+* <kbd>TAB<kbd> / <kbd>SHIFT</kbd><kbd>TAB</kbd> Indent more / less current line or selected block
+* <kbd>SHIFT</kbd><kbd>K</kbd> Move the current line up
+* <kbd>SHIFT</kbd><kbd>J</kbd> Move the current line down
 * <kbd>F3</kbd> Jump to declaration of the function / class / ... under the cursor
 * <kbd>F4</kbd> Jump to declaration of the function / class / ... given by prompt
 * <kbd>F5</kbd> Create / Refresh tags list of the project
 * <kbd>F8</kbd> Toggle file outline
 * <kbd>+</kbd> Auto align with tabular (detect ":" or "=" context)
+* <kbd>F10</kbd> Get the highlight group of the element under the cursor
 
