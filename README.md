@@ -13,7 +13,7 @@ This plugin contains my custom tweaks on VIm configuration. I've put them in a s
 * Disable swap files (temporary files with tilde)
 * Auto-remove trailing spaces when saving a file
 * Force indentation with spaces (2), not tabulation
-* The **à** key (french keyboards) works as **0** (begin of current line)
+* the <kbd>à</kbd> key (french keyboards) works as <kbd>0</kbd> (begin of current line)
 * [Tabular plugin](https://github.com/godlygeek/tabular) requires no parameters with my custom key mapping
 * [Syntastic plugin](https://github.com/scrooloose/syntastic) is set to show errors by default
 
@@ -36,7 +36,7 @@ This plugin contains my custom tweaks on VIm configuration. I've put them in a s
 * <kbd>CTRL</kbd><kbd>J</kbd> Page down
 * <kbd>CTRL</kbd><kbd>H</kbd> Begin of line
 * <kbd>CTRL</kbd><kbd>L</kbd> End of line
-* <kbd>TAB<kbd> / <kbd>SHIFT</kbd><kbd>TAB</kbd> Indent more / less current line or selected block
+* <kbd>TAB</kbd> / <kbd>SHIFT</kbd><kbd>TAB</kbd> Indent more / less current line or selected block
 * <kbd>SHIFT</kbd><kbd>K</kbd> Move the current line up
 * <kbd>SHIFT</kbd><kbd>J</kbd> Move the current line down
 * <kbd>F3</kbd> Jump to declaration of the function / class / ... under the cursor
