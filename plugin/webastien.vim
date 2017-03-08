@@ -18,20 +18,23 @@ set scrolloff=50                                              " Keep enought lin
 set showcmd                                                   " Display incomplete command (bottom right)
 set splitbelow                                                " Display help and preview window at the bottom
 set statusline=%<%w%F\ %h%m%r%=%-10.(%l,%c%V\ \[%P\]%)        " Customize statusline to display full filepath
+set wildignorecase                                            " Make filename completion ignore case
 set wildmenu | set wildmode=longest,list                      " Customize command completion
-set tw=170 | set wrap | set linebreak | set display=lastline  " Wrap long lines, never cut words, display its begin when everything cannot be displayed
+set tw=170 | set wrap | set linebreak | set display=lastline  " Wrap long lines, no words cut, display its begin when everything cannot be displayed
 set viminfo='10,\"100,:20,%,n~/.viminfo                       " VIm informations file
-set shiftwidth=2 | set tabstop=2 | set softtabstop=2 | set backspace=2 | set expandtab | set autoindent | set smartindent " Never tabs, only 2 spaces
-set suffixes=.jpg,.png,.jpeg,.gif,.bak,~,.swp,.swo,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.pyo " Hidden suffixes
+set shiftwidth=2 | set tabstop=2 | set softtabstop=2 | set backspace=2 | set expandtab | set autoindent | set smartindent " Never tabs but 2 spaces
+set suffixes+=.jpg,.png,.jpeg,.gif,.svg,.swo,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.pyo,.exe " Low priority files
+let &wildignore=substitute(&suffixes,'\.','*.','g') " Ignore low priority files in word search
 
 " ###################################################################################################################################################
 " ##  Plugins options  ##############################################################################################################################
 " ###################################################################################################################################################
-let g:syntastic_auto_loc_list=1                                                " Syntastic
-let NERDSpaceDelims=1                                                          " NERDcommenter
-let g:tagbar_compact = 1 | let g:tagbar_autofocus = 1 | let g:tagbar_close = 1 " Tagbar
-let g:AutoPreview_enabled=0 | set previewheight=1 | set updatetime=500         " Autopreview
-let g:phpcomplete_mappings = { 'jump_to_def': '<C-G>' }                        " PHPComplete TODO: Replace omnicompletion mapping when well tested
+let g:syntastic_auto_loc_list=1                                                                                                       " Syntastic
+let NERDSpaceDelims=1                                                                                                                 " NERDcommenter
+let g:phpcomplete_mappings={ 'jump_to_def': '<C-G>' }                                                                                 " PHPComplete
+let g:AutoPreview_enabled=0 | set previewheight=1 | set updatetime=999 | let g:AutoPreview_allowed_filetypes=['php','java','c','cpp'] " Autopreview
+let g:tagbar_compact=1 | let g:tagbar_autofocus=1 | let g:tagbar_close=1 | let g:tagbar_map_togglefold=['o','za','<Space>']           " Tagbar
+let g:user_emmet_leader_key='<C-H>' | let g:user_emmet_togglecomment_key='<C-H>h'                                                     " Emmet
 
 " ###################################################################################################################################################
 " ##  Autocommands  #################################################################################################################################
@@ -47,6 +50,9 @@ au BufRead,BufNewFile *.test    set filetype=php
 au BufRead,BufNewFile *.engine  set filetype=php
 au BufRead,BufNewFile *.profile set filetype=php
 au BufRead,BufNewFile *.view    set filetype=php
+au BufRead,BufNewFile *.theme   set filetype=php
+" Fix Autopreview plugin hard coded (and repeated...) highlight
+au BufLeave * :if &previewwindow | hi previewWord ctermbg=NONE | endif
 
 " ###################################################################################################################################################
 " ##  Custom functions  #############################################################################################################################
@@ -63,15 +69,32 @@ function SmartHome()
 endfunction
 " Search a word (the one under the cursor by default) in the given directory, recursively
 function WordSearch()
-  call inputsave() | let w = input('Word: ', expand("<cword>")) | call inputrestore()            | if w == ''                    | return | endif
-  call inputsave() | let d = input('Dir: ',  getcwd(), 'dir')   | call inputrestore() | echo ' ' | if d == '' || !isdirectory(d) | return | endif
-  echohl Search | echo 'Searching "'. w .'" in "'. d .'"...' | echohl None
-  exec "tabnew" | silent exec "vimgrep /". w ."/j ". fnamemodify(d, ':p') ."**/*.*" | exec "copen" | exec "cfirst" | exec "norm zv"
+  call inputsave() | let w = input('Word: ', expand("<cword>")) | call inputrestore() | if w == ''                    | return | endif
+  call inputsave() | let d = input('Dir: ',  getcwd(), 'dir')   | call inputrestore() | if d == '' || !isdirectory(d) | return | endif
+  redraw | echohl Search | echo 'Searching "'. w .'" in "'. d .'"...' | echohl None
+  exec "tabnew" | silent exec "noautocmd vimgrep /". w ."/ ". fnamemodify(d, ':p') ."**/*.*" | exec "copen"
+  exec 'setlocal statusline=%#Search#\ \ %L\ results\ for\ «\ '. w .'\ »%=(into\ '. d .')\ \ %*'| exec "cfirst" | exec "norm zv"
 endfunction
 " Detect parameters for Tabular
 function TabAuto()
   let l = getline('.') | let p = stridx(l, '=') | if p == -1 || p < stridx(l, ':') | exec "Tabularize /:\\zs/l0r1" | else | exec "Tabularize /=" | endif
 endfunction
+" Helper function for my command abbreviations
+function CommandAbbreviation(original, abbreviation)
+  return (getcmdtype() == ':' && getcmdpos() == 1)? a:abbreviation : a:original
+endfunction
+" Helper function to remove the trailing space of an abbreviation, @see :help abbreviations (Eatchar function)
+function AbbrebiationRemoveTrailingSpace()
+  let c = nr2char(getchar(0)) | return (c =~ '\s')? '' : c
+endfunction
+
+" ###################################################################################################################################################
+" ##  Custom abbreviations  /!\ Remember: Never add comments on an abbreviation line!  ##############################################################
+" ###################################################################################################################################################
+" Open VIm help in a new tab if the current file is not a VIm help
+ca h <C-R>=CommandAbbreviation('h', (&ft == 'help')? 'h' : 'tab h')<CR>
+" Prefill the edit command with the full current path (reduced if in home)
+ca e <C-R>=CommandAbbreviation('e', 'e '. fnamemodify(getcwd(), ':p:~'))<CR><C-R>=AbbrebiationRemoveTrailingSpace()<CR>
 
 " ###################################################################################################################################################
 " ##  Custom keyboard mappings  /!\ Remember: Never add comments on a mapping line!  ################################################################
@@ -80,14 +103,16 @@ endfunction
 nnoremap <silent> <Home> :call SmartHome()<CR>
 " Remap the "à" key to work as "0" on qwerty keyboards ("à" and "0" share the same key on french keyboards...)
 map à <Home>
+" Map nohlsearch on semicolon
+map <silent> ; :noh<CR>
 " Page Up / Down and Begin / End of line
-map <C-K> <PageUp>
-map <C-J> <PageDown>
-map <C-H> <Home>
-map <C-L> $
+map <S-K> <PageUp>
+map <S-J> <PageDown>
+map <S-H> <Home>
+map <S-L> $
 " Swap current line with the previous/next one
-noremap <silent> <S-K> :m .-2<CR>
-noremap <silent> <S-J> :m .+1<CR>
+noremap <silent> <C-K> :m .-2<CR>
+noremap <silent> <C-J> :m .+1<CR>
 " Buffers navigation
 nnoremap <Up>   <C-W><S-W>
 nnoremap <Down> <C-W>w
@@ -107,12 +132,11 @@ inoremap <C-@> <C-X><C-O>
 " Map indentation on Tab key, reverse to Shift-Tab (for single lines and blocks)
 noremap  <Tab>   >>
 noremap  <S-Tab> <<
-inoremap <Tab>   <C-O>>>
 inoremap <S-Tab> <C-O><<
 vnoremap <Tab>   >gv
 vnoremap <S-Tab> <gv
 " [ PLUGIN Autopreview ] Map preview toggle on F2
-nnoremap <silent> <F2> :AutoPreviewToggle<CR>:hi previewWord ctermbg=NONE<CR>
+nnoremap <silent> <F2> :AutoPreviewToggle<CR>
 " [ PLUGIN Nerd commenter ] Remap toggle on Shift-C
 map <S-C> <leader>c<space>
 " [ PLUGIN Tagbar ] Map visibility toggle on F8

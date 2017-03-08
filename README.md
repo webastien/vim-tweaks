@@ -32,17 +32,18 @@ This plugin contains my custom tweaks on VIm configuration. I've put them in a s
 * <kbd>RIGHT</kbd> Next tab
 * <kbd>UP</kbd> Previous pane
 * <kbd>DOWN</kbd> Next pane
-* <kbd>CTRL</kbd><kbd>K</kbd> Page up
-* <kbd>CTRL</kbd><kbd>J</kbd> Page down
-* <kbd>CTRL</kbd><kbd>H</kbd> Begin of line
-* <kbd>CTRL</kbd><kbd>L</kbd> End of line
+* <kbd>SHIFT</kbd><kbd>K</kbd> Page up
+* <kbd>SHIFT</kbd><kbd>J</kbd> Page down
+* <kbd>SHIFT</kbd><kbd>H</kbd> Begin of line
+* <kbd>SHIFT</kbd><kbd>L</kbd> End of line
 * <kbd>TAB</kbd> / <kbd>SHIFT</kbd><kbd>TAB</kbd> Indent more / less current line or selected block
-* <kbd>SHIFT</kbd><kbd>K</kbd> Move the current line up
-* <kbd>SHIFT</kbd><kbd>J</kbd> Move the current line down
+* <kbd>CTRL</kbd><kbd>K</kbd> Move the current line up
+* <kbd>CTRL</kbd><kbd>J</kbd> Move the current line down
 * <kbd>F3</kbd> Jump to declaration of the function / class / ... under the cursor
 * <kbd>F4</kbd> Jump to declaration of the function / class / ... given by prompt
 * <kbd>F5</kbd> Create / Refresh tags list of the project
 * <kbd>F8</kbd> Toggle file outline
 * <kbd>+</kbd> Auto align with tabular (detect ":" or "=" context)
+* <kbd>;</kbd> Turn off searched terms highlighting
 * <kbd>F10</kbd> Get the highlight group of the element under the cursor
 
