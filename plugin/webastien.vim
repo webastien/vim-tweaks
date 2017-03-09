@@ -35,6 +35,8 @@ let g:phpcomplete_mappings={ 'jump_to_def': '<C-G>' }                           
 let g:AutoPreview_enabled=0 | set previewheight=1 | set updatetime=999 | let g:AutoPreview_allowed_filetypes=['php','java','c','cpp'] " Autopreview
 let g:tagbar_compact=1 | let g:tagbar_autofocus=1 | let g:tagbar_close=1 | let g:tagbar_map_togglefold=['o','za','<Space>']           " Tagbar
 let g:user_emmet_leader_key='<C-H>' | let g:user_emmet_togglecomment_key='<C-H>h'                                                     " Emmet
+" let g:phpcomplete_parse_docblock_comments = 1     " Options requiring tests, but seems interresting
+" let g:phpcomplete_enhance_jump_to_definition = 1  " Options requiring tests, but seems interresting
 
 " ###################################################################################################################################################
 " ##  Autocommands  #################################################################################################################################
@@ -56,8 +58,10 @@ aug QFClose " @see http://stackoverflow.com/questions/7476126/how-to-automatical
   au!
   au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix" | q | endif
 aug END
+" Auto-close current window if in diff mode and the other part has been close
+au WinEnter * if &diff && winnr('$') == 1 | q | endif
 " Fix Autopreview plugin hard coded (and repeated...) highlight
-au BufLeave * :if &previewwindow | hi previewWord ctermbg=NONE | endif
+au BufLeave * if &previewwindow | hi previewWord ctermbg=NONE | endif
 
 " ###################################################################################################################################################
 " ##  Custom functions  #############################################################################################################################
