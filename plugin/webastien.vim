@@ -51,6 +51,11 @@ au BufRead,BufNewFile *.engine  set filetype=php
 au BufRead,BufNewFile *.profile set filetype=php
 au BufRead,BufNewFile *.view    set filetype=php
 au BufRead,BufNewFile *.theme   set filetype=php
+" Auto-close quick fix buffer if it's the last buffer in a tab (useful with word search feature)
+aug QFClose " @see http://stackoverflow.com/questions/7476126/how-to-automatically-close-the-quick-fix-window-when-leaving-a-file
+  au!
+  au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix" | q | endif
+aug END
 " Fix Autopreview plugin hard coded (and repeated...) highlight
 au BufLeave * :if &previewwindow | hi previewWord ctermbg=NONE | endif
 
@@ -72,8 +77,10 @@ function WordSearch()
   call inputsave() | let w = input('Word: ', expand("<cword>")) | call inputrestore() | if w == ''                    | return | endif
   call inputsave() | let d = input('Dir: ',  getcwd(), 'dir')   | call inputrestore() | if d == '' || !isdirectory(d) | return | endif
   redraw | echohl Search | echo 'Searching "'. w .'" in "'. d .'"...' | echohl None
-  exec "tabnew" | silent exec "noautocmd vimgrep /". w ."/ ". fnamemodify(d, ':p') ."**/*.*" | exec "copen"
+  if !getwinvar(1, "pendingWordSearch") | exec "tabnew" | endif
+  silent exec "noautocmd vimgrep /". w ."/ ". fnamemodify(d, ':p') ."**/*.*" | exec "copen"
   exec 'setlocal statusline=%#Search#\ \ %L\ results\ for\ «\ '. w .'\ »%=(into\ '. d .')\ \ %*'| exec "cfirst" | exec "norm zv"
+  exec setwinvar(1, "pendingWordSearch", 1)
 endfunction
 " Detect parameters for Tabular
 function TabAuto()
