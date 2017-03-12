@@ -16,8 +16,66 @@ This plugin contains my custom tweaks on VIm configuration. I've put them in a s
 * the <kbd>à</kbd> key (french keyboards) works as <kbd>0</kbd> (begin of current line)
 * [Tabular plugin](https://github.com/godlygeek/tabular) requires no parameters with my custom key mapping
 * [Syntastic plugin](https://github.com/scrooloose/syntastic) is set to show errors by default
+* Allow to update your .vimrc by downloading a new one
 
-## Keyboard shortcuts
+## Configuration
+The following option are optional, if you want to change their values, put it in your .vimrc.
+
+### Prefilled URL for command `UpdateVimrc`
+Curl is used to download the file, you will need to confirm the URL and the replacement. Default value:
+```
+let g:vim_tweaks__vimrc_url='https://raw.githubusercontent.com/webastien/vim/master/.vimrc'
+```
+
+### Altered filetypes
+You can tell VIm to consider some files as a given filetype (`:h filetype` for more info). It's useful for syntax coloration and plugin based on filetypes. This plugin configure this filetypes alteration with a single dict variable. Keys are desired filetype, values are list of file pattern which will be associated with. Default value:
+```
+let g:vim_tweaks__filetypes = {
+  \  'dosini': [ '*.info', '*.ini' ],
+  \  'php':    [ '*.inc', '*.module', '*.theme', '*.install', '*.engine', '*.profile', '*.view', '*.test' ]
+  \ }
+```
+
+**Only applied if default autocommands have not been disabled.**
+
+### Default command abbreviations
+To disable them, simply use `let g:vim_tweaks__default_abbreviations = 0`
+
+### Default keyboard mapping
+To disable them, simply use `let g:vim_tweaks__default_mapping = 0`
+
+### Default autocommands
+To disable them, simply use `let g:vim_tweaks__default_autocommands = 0`
+
+### Default options for vim editor
+To disable them, simply use `let g:vim_tweaks__default_options_vim = 0`
+
+### Default options for vim plugins
+To disable them, simply use `let g:vim_tweaks__default_options_plugins = 0`
+
+## Functions
+* **AbbrebiationRemoveTrailingSpace()**, (internal use) helper function to remove the trailing space of an abbreviation
+* **CommandAbbreviation(original, abbreviation)**, (internal use) helper function for my command abbreviations
+* **LastPosition()**, replace the cursor on the last position in the file
+* **SmartHome()**, toggle start of line / first nonblank character of the line
+* **TabAuto()**, execute `tabularize` with auto-detected parameters ([Tabular plugin](https://github.com/godlygeek/tabular))
+* **UpdateVimrc(url)**, update the .vimrc file with the given URL
+* **WordSearch()**, search a word (the one under the cursor by default) in the given directory, recursively
+
+To call them without a custom key map, simply type `:call WordSearch()` for example.
+
+## Commands
+* **:UpdateVimrc**, prompt for an URL, then update the `.vimrc` file with it (see [configuration section](#configuration) to prefill with your favorite)
+
+## Default command abbreviations
+(Can be disabled with option `g:vim_tweaks__default_abbreviations`.)
+
+* **h**, open VIm help in a new tab if the current file is not a VIm help
+* **e**, prefill the edit command with the full current path (reduced if in home)
+
+## Default keyboard mapping
+(Can be disabled with option `g:vim_tweaks__default_mapping`.)
+
 * <kbd>CTRL</kbd><kbd>F</kbd> to search something, somewhere
 * <kbd>F6</kbd> Go to previous result of this search
 * <kbd>F7</kbd> Go to next result of this search
