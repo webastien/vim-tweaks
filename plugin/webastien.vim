@@ -26,7 +26,7 @@ if !exists('g:vim_tweaks__default_options_vim') || g:vim_tweaks__default_options
   set viminfo='10,\"100,:20,%,n~/.viminfo                       " VIm informations file
   set shiftwidth=2 | set tabstop=2 | set softtabstop=2 | set backspace=2 | set expandtab | set autoindent | set smartindent " Never tabs but 2 spaces
   set suffixes=.bak,~,.o,.h,.info,.swp,.obj,.swo,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.pyo,.exe " Low priority files
-  set suffixes+=.jpg,.png,.jpeg,.gif,.svg,.bmp,.pdf,.ppt,.pptx,.word,.pdf " (those extensions will never be edited inside VIm.)
+  set suffixes+=.jpg,.png,.jpeg,.gif,.svg,.bmp,.pdf,.ppt,.pptx,.word,.pdf,.ai,.ttf,.xls,.xlsx,.doc,.docx,.woff,.gz,.tar,.zip,.rar,.7zip
   let &wildignore=substitute(&suffixes,'\.','*.','g')           " Ignore low priority files in word search
 endif
 
@@ -97,7 +97,7 @@ function WordSearch()
   redraw | echohl Search | echo 'Searching "'. w .'" in "'. d .'"...' | echohl None
   if !getwinvar(1, "pendingWordSearch") | exec "tabnew" | endif
   silent exec "noautocmd vimgrep /". w ."/ ". fnamemodify(d, ':p') ."**/*.*" | exec "copen"
-  exec 'setlocal statusline=%#Search#\ \ %L\ results\ for\ «\ '. w .'\ »%=(into\ '. d .')\ \ %*'| exec "cfirst" | exec "norm zv"
+  exec 'setlocal statusline=%#Search#\ \ %L\ results\ for\ «\ '. w .'\ »,\ %P%=(into\ '. d .')\ \ %*'| exec "cfirst" | exec "norm zv"
   exec setwinvar(1, "pendingWordSearch", 1)
 endfunction
 " Execute tabularize with auto-detected parameters (Tabular plugin)
