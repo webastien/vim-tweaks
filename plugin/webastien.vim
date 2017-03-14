@@ -4,6 +4,7 @@ if exists('vim_tweaks__loaded') | finish | endif | let vim_tweaks__loaded = 1
 " ###################################################################################################################################################
 if !exists('g:vim_tweaks__default_options_vim') || g:vim_tweaks__default_options_vim != 0
   syntax enable                                                 " Enable syntax highlighting
+  set mouse=a                                                   " Enable mouse support to select windows, text, ...
   set autochdir                                                 " Use relative path from the current file
   set completeopt=menu,preview,longest                          " Omnicompletion settings
   set cursorline                                                " Highlight current line
@@ -24,7 +25,8 @@ if !exists('g:vim_tweaks__default_options_vim') || g:vim_tweaks__default_options
   set tw=170 | set wrap | set linebreak | set display=lastline  " Wrap long lines, no words cut, display its begin when everything cannot be displayed
   set viminfo='10,\"100,:20,%,n~/.viminfo                       " VIm informations file
   set shiftwidth=2 | set tabstop=2 | set softtabstop=2 | set backspace=2 | set expandtab | set autoindent | set smartindent " Never tabs but 2 spaces
-  set suffixes+=.jpg,.png,.jpeg,.gif,.svg,.swo,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.pyo,.exe " Low priority files
+  set suffixes=.bak,~,.o,.h,.info,.swp,.obj,.swo,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.pyo,.exe " Low priority files
+  set suffixes+=.jpg,.png,.jpeg,.gif,.svg,.bmp,.pdf,.ppt,.pptx,.word,.pdf " (those extensions will never be edited inside VIm.)
   let &wildignore=substitute(&suffixes,'\.','*.','g')           " Ignore low priority files in word search
 endif
 
