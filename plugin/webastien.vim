@@ -97,7 +97,7 @@ function WordSearch()
   redraw | echohl Search | echo 'Searching "'. w .'" in "'. d .'"...' | echohl None
   if !getwinvar(1, "pendingWordSearch") | exec "tabnew" | endif
   silent exec "noautocmd vimgrep /". w ."/ ". fnamemodify(d, ':p') ."**/*.*" | exec "copen"
-  exec 'setlocal statusline=%#Search#\ \ %L\ results\ for\ «\ '. w .'\ »,\ %P%=(into\ '. d .')\ \ %*'| exec "cfirst" | exec "norm zv"
+  exec 'setlocal statusline=%#Search#\ \ %L\ results\ for\ «\ '. escape(w, ' ') .'\ »,\ %P%=(into\ '. d .')\ \ %*'| exec "cfirst" | exec "norm zv"
   exec setwinvar(1, "pendingWordSearch", 1)
 endfunction
 " Execute tabularize with auto-detected parameters (Tabular plugin)
