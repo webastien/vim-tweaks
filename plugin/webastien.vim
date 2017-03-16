@@ -26,7 +26,7 @@ if !exists('g:vim_tweaks__default_options_vim') || g:vim_tweaks__default_options
   set viminfo='10,\"100,:20,%,n~/.viminfo                       " VIm informations file
   set shiftwidth=2 | set tabstop=2 | set softtabstop=2 | set backspace=2 | set expandtab | set autoindent | set smartindent " Never tabs but 2 spaces
   set suffixes=.bak,~,.o,.h,.info,.swp,.obj,.swo,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.pyo,.exe " Low priority files
-  set suffixes+=.jpg,.png,.jpeg,.gif,.svg,.bmp,.pdf,.ppt,.pptx,.word,.pdf,.ai,.ttf,.xls,.xlsx,.doc,.docx,.woff,.gz,.tar,.zip,.rar,.7zip
+  set suffixes+=.jpg,.png,.jpeg,.gif,.svg,.bmp,.pdf,.ppt,.pptx,.word,.pdf,.ai,.ttf,.xls,.xlsx,.doc,.docx,.woff,.tar,.gz,.tgz,.zip,.rar,.7zip
   let &wildignore=substitute(&suffixes,'\.','*.','g')           " Ignore low priority files in word search
 endif
 
@@ -34,7 +34,7 @@ endif
 " ##  Plugins options  ##############################################################################################################################
 " ###################################################################################################################################################
 if !exists('g:vim_tweaks__default_options_plugins') || g:vim_tweaks__default_options_plugins != 0
-  let g:syntastic_auto_loc_list=1                                                                                                       " Syntastic
+  let g:syntastic_check_on_open=1 | let g:syntastic_auto_loc_list=1                                                                     " Syntastic
   let NERDSpaceDelims=1                                                                                                                 " NERDcommenter
   let g:phpcomplete_mappings={ 'jump_to_def': '<C-G>' }                                                                                 " PHPComplete
   let g:AutoPreview_enabled=0 | set previewheight=1 | set updatetime=999 | let g:AutoPreview_allowed_filetypes=['php','java','c','cpp'] " Autopreview
@@ -75,6 +75,8 @@ if !exists('g:vim_tweaks__default_autocommands') || g:vim_tweaks__default_autoco
   au WinEnter * if &diff && winnr('$') == 1 | q | endif
   " Fix Autopreview plugin hard coded (and repeated...) highlight
   au BufLeave * if &previewwindow | hi previewWord ctermbg=NONE | endif
+  " Adjust Capistrano filetypes
+  au BufRead,BufNewFile Capfile set filetype=ruby
 endif
 
 " ###################################################################################################################################################
@@ -92,13 +94,13 @@ function SmartHome()
 endfunction
 " Search a word (the one under the cursor by default) in the given directory, recursively
 function WordSearch()
-  call inputsave() | let w = input('Word: ', expand("<cword>")) | call inputrestore() | if w == ''                    | return | endif
-  call inputsave() | let d = input('Dir: ',  getcwd(), 'dir')   | call inputrestore() | if d == '' || !isdirectory(d) | return | endif
-  redraw | echohl Search | echo 'Searching "'. w .'" in "'. d .'"...' | echohl None
-  if !getwinvar(1, "pendingWordSearch") | exec "tabnew" | endif
-  silent exec "noautocmd vimgrep /". w ."/ ". fnamemodify(d, ':p') ."**/*.*" | exec "copen"
-  exec 'setlocal statusline=%#Search#\ \ %L\ results\ for\ «\ '. escape(w, ' ') .'\ »,\ %P%=(into\ '. d .')\ \ %*'| exec "cfirst" | exec "norm zv"
-  exec setwinvar(1, "pendingWordSearch", 1)
+  call inputsave() | let w = input('Word: ', expand("<cword>")) | call inputrestore() | if w == ''                    | echo "\n" | redraw | return | endif
+  call inputsave() | let d = input('Dir: ',  getcwd(), 'dir')   | call inputrestore() | if d == '' || !isdirectory(d) | echo "\n" | redraw | return | endif
+  redraw | echohl Search | echo 'Searching "'. w .'" in "'. d .'"...' | echohl None   | if !getwinvar(1, "pendingWordSearch") | exec "tabnew" | endif
+  try | exec "noautocmd vimgrep /". escape(w, '/') ."/ ". fnamemodify(d, ':p') ."**/*.*" | let found = 1 | catch | let found = 0 | endtry | redraw
+  if found == 0 | tabclose | redraw | echohl ErrorMsg | echo 'No match found.' | echohl None | else | exec setwinvar(1, "pendingWordSearch", 1) |
+    do filetypedetect BufRead | copen | exec 'setlocal statusline=%#Search#\ \ %L\ results\ for\ «\ '. escape(w, ' ') .'\ »,\ %P%=(into\ '. d .')\ \ %*'
+  endif
 endfunction
 " Execute tabularize with auto-detected parameters (Tabular plugin)
 function TabAuto()
@@ -152,7 +154,7 @@ com! -nargs=0 UpdateVimrc call UpdateVimrc()
 if !exists('g:vim_tweaks__default_mapping') || g:vim_tweaks__default_mapping != 0
   " Map a custom handler on Home key to toggle start of line / first nonblank character
   nnoremap <silent> <Home> :call SmartHome()<CR>
-  " Remap the "à" key to work as "0" on qwerty keyboards ("à" and "0" share the same key on french keyboards...)
+  " Remap the “à” key to work as “0” on qwerty keyboards (“à” and “0” share the same key on french keyboards...)
   map à <Home>
   " Map nohlsearch on semicolon
   map <silent> ; :noh<CR>
