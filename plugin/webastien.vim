@@ -46,6 +46,7 @@ endif
 if !exists('g:vim_tweaks__filetypes')
   let g:vim_tweaks__filetypes = {
     \  'dosini': [ '*.info', '*.ini' ],
+    \  'ruby':   [ 'Vagrantfile', 'Capfile' ],
     \  'php':    [ '*.php', '*.inc', '*.module', '*.theme', '*.install', '*.engine', '*.profile', '*.view', '*.test' ]
     \ }
 endif
@@ -75,8 +76,6 @@ if !exists('g:vim_tweaks__default_autocommands') || g:vim_tweaks__default_autoco
   au WinEnter * if &diff && winnr('$') == 1 | q | endif
   " Fix Autopreview plugin hard coded (and repeated...) highlight
   au BufLeave * if &previewwindow | hi previewWord ctermbg=NONE | endif
-  " Adjust Capistrano filetypes
-  au BufRead,BufNewFile Capfile set filetype=ruby
 endif
 
 " ###################################################################################################################################################
