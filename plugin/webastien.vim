@@ -47,7 +47,8 @@ if !exists('g:vim_tweaks__filetypes')
   let g:vim_tweaks__filetypes = {
     \  'dosini': [ '*.info', '*.ini' ],
     \  'ruby':   [ 'Vagrantfile', 'Capfile' ],
-    \  'php':    [ '*.php', '*.inc', '*.module', '*.theme', '*.install', '*.engine', '*.profile', '*.view', '*.test' ]
+    \  'sshconfig': [ '*/.ssh/config.d/*/config' ],
+    \  'php':    [ '*.php', '*.inc', '*.module', '*.theme', '*.install', '*.engine', '*.profile', '*.view', '*.test' ],
     \ }
 endif
 
