@@ -32,11 +32,18 @@ You can tell VIm to consider some files as a given filetype (`:h filetype` for m
 ```
 let g:vim_tweaks__filetypes = {
   \  'dosini': [ '*.info', '*.ini' ],
+  \  'ruby':   [ 'Vagrantfile', 'Capfile' ],
+  \  'sshconfig': [ '*/.ssh/config.d/*/config' ],
   \  'php':    [ '*.inc', '*.module', '*.theme', '*.install', '*.engine', '*.profile', '*.view', '*.test' ]
   \ }
 ```
 
 **Only applied if default autocommands have not been disabled.**
+
+**Note:**
+* Those PHP filetypes work with [Drupal](https://www.drupal.org)
+* This Ruby detection is useful when using [Vagrant](https://www.vagrantup.com) and [Capistrano](http://capistranorb.com)
+* "sshconfig" detection is based on my [SSH config organization](https://github.com/webastien/dotfiles-mac/tree/master/ssh).
 
 ### Default command abbreviations
 To disable them, simply use `let g:vim_tweaks__default_abbreviations = 0`
