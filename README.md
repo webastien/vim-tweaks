@@ -110,5 +110,6 @@ To call them without a custom key map, simply type `:call WordSearch()` for exam
 * <kbd>F8</kbd> Toggle file outline
 * <kbd>+</kbd> Auto align with tabular (detect ":" or "=" context)
 * <kbd>;</kbd> Turn off searched terms highlighting
+* <kbd>F9</kbd> Toggle mouse support
 * <kbd>F10</kbd> Get the highlight group of the element under the cursor
 

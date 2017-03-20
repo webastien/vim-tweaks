@@ -131,6 +131,10 @@ function UpdateVimrc(...)
     redraw | call UpdateVimrc(url)
   endif
 endfunction
+" Toggle mouse support
+function ToggleMouse()
+  if &mouse == 'a' | set mouse= | else | set mouse=a | endif
+endfunction
 
 " ###################################################################################################################################################
 " ##  Custom abbreviations  /!\ Remember: Never add comments on an abbreviation line!  ##############################################################
@@ -206,5 +210,7 @@ if !exists('g:vim_tweaks__default_mapping') || g:vim_tweaks__default_mapping != 
   nnoremap <silent> <F5> :call RebuildTags()<CR>
   " [ TO IMPROVE THE COLORS SETTINGS ] Get the highligh group of the element under the cursor
   map <F10> :echo synIDattr(synID(line("."),col("."),1),"name")<CR>
+  " [ Temporary? Recently activate the mouse, but disable it often, so... Map F9 to toggle ]
+  map <silent> <F9> :call ToggleMouse()<CR>
 endif
 
