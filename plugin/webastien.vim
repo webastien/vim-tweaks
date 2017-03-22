@@ -4,7 +4,6 @@ if exists('vim_tweaks__loaded') | finish | endif | let vim_tweaks__loaded = 1
 " ###################################################################################################################################################
 if !exists('g:vim_tweaks__default_options_vim') || g:vim_tweaks__default_options_vim != 0
   syntax enable                                                 " Enable syntax highlighting
-  set mouse=a                                                   " Enable mouse support to select windows, text, ...
   set autochdir                                                 " Use relative path from the current file
   set completeopt=menu,preview,longest                          " Omnicompletion settings
   set cursorline                                                " Highlight current line
