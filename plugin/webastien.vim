@@ -24,8 +24,8 @@ if !exists('g:vim_tweaks__default_options_vim') || g:vim_tweaks__default_options
   set tw=170 | set wrap | set linebreak | set display=lastline  " Wrap long lines, no words cut, display its begin when everything cannot be displayed
   set viminfo='10,\"100,:20,%,n~/.viminfo                       " VIm informations file
   set shiftwidth=2 | set tabstop=2 | set softtabstop=2 | set backspace=2 | set expandtab | set autoindent | set smartindent " Never tabs but 2 spaces
-  set suffixes=.bak,~,.o,.h,.info,.swp,.obj,.swo,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.pyo,.exe " Low priority files
-  set suffixes+=.jpg,.png,.jpeg,.gif,.svg,.bmp,.pdf,.ppt,.pptx,.word,.pdf,.ai,.ttf,.xls,.xlsx,.doc,.docx,.woff,.tar,.gz,.tgz,.zip,.rar,.7zip
+  set suffixes=.bak,~,.o,.h,.swp,.obj,.swo,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.pyo,.exe " Low priority files
+  set suffixes+=.jpg,.png,.jpeg,.gif,.svg,.bmp,.pdf,.ppt,.pptx,.word,.pdf,.ai,.ttf,.xls,.xlsx,.doc,.docx,.woff,.tar,.gz,.tgz,.zip,.rar,.7zip,.eot,.woff2
   let &wildignore=substitute(&suffixes,'\.','*.','g')           " Ignore low priority files in word search
 endif
 
@@ -173,10 +173,12 @@ if !exists('g:vim_tweaks__default_mapping') || g:vim_tweaks__default_mapping != 
   nnoremap <Up>   <C-W><S-W>
   nnoremap <Down> <C-W>w
   " Tabs navigation
-  map <silent> <C-T>   :tabnew<CR>
-  map <silent> <C-W>   :tabclose<CR>
-  map <silent> <Left>  :tabprevious<CR>
-  map <silent> <Right> :tabnext<CR>
+  map <silent> <C-T>     :tabnew<CR>
+  map <silent> <C-W>     :tabclose<CR>
+  map <silent> <Left>    :tabprevious<CR>
+  map <silent> <Right>   :tabnext<CR>
+  map <silent> <S-Left>  :tabmove -1<CR>
+  map <silent> <S-Right> :tabmove +1<CR>
   " Keep the current text in memory when being pasted
   vnoremap p "_dP
   " Map quick return last editing position

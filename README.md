@@ -97,6 +97,8 @@ To call them without a custom key map, simply type `:call WordSearch()` for exam
 * <kbd>RIGHT</kbd> Next tab
 * <kbd>UP</kbd> Previous pane
 * <kbd>DOWN</kbd> Next pane
+* <kbd>SHIFT</kbd><kbd>LEFT</kbd> Move the current tab on the left
+* <kbd>SHIFT</kbd><kbd>RIGHT</kbd> Move the current tab on the right
 * <kbd>SHIFT</kbd><kbd>K</kbd> Page up
 * <kbd>SHIFT</kbd><kbd>J</kbd> Page down
 * <kbd>SHIFT</kbd><kbd>H</kbd> Begin of line
